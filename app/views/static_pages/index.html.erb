@@ -1,0 +1,50 @@
+<section class="slice slice-lg bg-section-secondary">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <h3 class=" mt-4">Shortner your URL</h3>
+      <p class="lead lh-180">Start building fast, beautiful and modern looking websites in no time using our theme.</p>
+      <div class="fluid-paragraph mt-3">
+        <span>
+          <div class="form-group">
+            <%= form_tag(static_pages_index_path, method: :get) do %>
+              Entrez le prénom du profil que vous souhaitez rechercher <%= text_field_tag :search %>
+
+                          <%= submit_tag 'Search', name: nil %>
+            <% end %>
+          <input type="text" class="form-control" placeholder="http://highflyers.agency/">
+        </div>
+        <button type="button" class="btn btn-animated btn-success btn-animated-x">
+          <span class="btn-inner--visible">Convertir</span>
+          <span class="btn-inner--hidden">
+        <i class="far fa-arrow-right"></i>
+        </span>
+        </button>
+        </span>
+      </div>
+
+
+      <!-- LIST the URL shortner -->
+
+
+      <table>
+        <thead>
+        <tr>
+          <th>User</th>
+          <th>URL</th>
+          <th>Unique KEY</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% Shortener::ShortenedUrl.all.each do |url| %>
+          <tr>
+            <td><%= url.owner_id %></td>
+            <td><%= url.url %></td>
+            <td><%= url.unique_key %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
