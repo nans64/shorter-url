@@ -12,7 +12,7 @@
             <% end %>
         </div>
       </div>
-      <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right" %>
+      <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right hover-scale-110" %>
       <table>
         <thead>
         <tr>
@@ -31,7 +31,7 @@
             <td><%= url.owner_id %></td>
             <td><%= url.use_count %></td>
             <td><%= url.url %></td>
-            <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary" %></td>
+            <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
           </tr>
         <% end %>
         </tbody>
