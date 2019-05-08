@@ -7,9 +7,20 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/addon' %>
+
   </head>
 
   <body>
-    <%= yield %>
+  <div id="container">
+    <div id="body">
+      <% if user_signed_in? %>
+  <%= render 'layouts/header' %>
+      <% end %>
+  <%= render 'layouts/flash'%>
+  <%= yield %>
+    </div >
+  </div >
+
   </body>
 </html>
