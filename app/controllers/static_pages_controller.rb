@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
 
       if Shortener::ShortenedUrl.where(url: params[:url], owner: current_user).empty?
         Shortener::ShortenedUrl.generate(params[:url], owner: current_user, fresh: true)
-        flash[:success] = "L'URL a été transformé avec succès et attaché à votre compte."
+        flash[:success] = "L'URL a été transformé avec succès."
 
       elsif !Shortener::ShortenedUrl.where(url: params[:url]).empty?
 
