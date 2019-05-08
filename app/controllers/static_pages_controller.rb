@@ -2,13 +2,13 @@ class StaticPagesController < ApplicationController
   def index
     @urls = Shortener::ShortenedUrl.all
 
-    unless params[:url].nil?
+    if ShortenedUrl.is_not_empty?(params[:url])
 
       @url = ShortenedUrl.sanitize(params[:url])
 
       if Shortener::ShortenedUrl.where(url: @url, owner: current_user).empty?
 
-        Shortener::ShortenedUrl.generate(@url, owner: current_user, fresh: true)
+        Shortener::ShortenedUrl.generate(@url, owner: current_user, fresh: true, expires_at: 72.hours.since)
         flash[:success] = "L'URL a été transformé avec succès - 1."
 
       elsif !Shortener::ShortenedUrl.where(url: @url).empty?
@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
 
       else
 
-        Shortener::ShortenedUrl.generate(@url, owner: current_user)
+        Shortener::ShortenedUrl.generate(@url, owner: current_user, expires_at: 72.hours.since)
         flash[:success] = "L'URL a été transformé avec succès - 3."
         redirect_to "/"
 

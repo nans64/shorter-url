@@ -5,8 +5,17 @@ class ShortenedUrl < ApplicationRecord
     url.strip!
     url = url.downcase.gsub(/(https?:\/\/)|(www\.)/, "")
     url.slice!(0) if url[0] == "/"
-    url.slice!(-1) if url[-1] == "/"
     url = "http://#{url}"
+  end
+
+  def self.is_not_empty?(url)
+
+    if url.nil? || url == ""
+      return false
+    else
+      return true
+    end
+
   end
 
 end
