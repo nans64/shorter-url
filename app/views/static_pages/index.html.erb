@@ -26,7 +26,7 @@
         <tbody>
         <% @urls.order(id: :desc).each do |url| %>
           <tr>
-            <td><%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}#{url.unique_key}" %></td>
+            <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
             <td><%= url.owner_id %></td>
             <td><%= url.use_count %></td>
             <td><%= url.url %></td>

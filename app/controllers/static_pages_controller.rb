@@ -4,19 +4,22 @@ class StaticPagesController < ApplicationController
 
     unless params[:url].nil?
 
-      if Shortener::ShortenedUrl.where(url: params[:url], owner: current_user).empty?
-        Shortener::ShortenedUrl.generate(params[:url], owner: current_user, fresh: true)
-        flash[:success] = "L'URL a été transformé avec succès."
+      @url = ShortenedUrl.sanitize(params[:url])
 
-      elsif !Shortener::ShortenedUrl.where(url: params[:url]).empty?
+      if Shortener::ShortenedUrl.where(url: @url, owner: current_user).empty?
 
-        @urls = Shortener::ShortenedUrl.where(url: params[:url])
-        flash[:success] = "L'URL a déjà été ajouté, vous pourrez la trouver ci-dessous."
+        Shortener::ShortenedUrl.generate(@url, owner: current_user, fresh: true)
+        flash[:success] = "L'URL a été transformé avec succès par la méthode 1."
+
+      elsif !Shortener::ShortenedUrl.where(url: @url).empty?
+
+        @urls = Shortener::ShortenedUrl.where(url: @url)
+        flash[:success] = "L'URL a déjà été ajouté, vous pourrez la trouver ci-dessous par la méthode 2"
 
       else
 
-        Shortener::ShortenedUrl.generate(params[:url], owner: current_user)
-        flash[:success] = "L'URL a été transformé avec succès."
+        Shortener::ShortenedUrl.generate(@url, owner: current_user)
+        flash[:success] = "L'URL a été transformé avec succès par la méthode 3."
         redirect_to "/"
 
       end
