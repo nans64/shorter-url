@@ -23,7 +23,7 @@ class StaticPagesController < ApplicationController
         redirect_to "/"
 
       end
-
+    else
     end
   end
 end
