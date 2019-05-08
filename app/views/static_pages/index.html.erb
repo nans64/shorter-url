@@ -1,50 +1,43 @@
 <section class="slice slice-lg bg-section-secondary">
   <div class="container">
     <div class="mb-5 text-center">
-      <h3 class=" mt-4">Shortner your URL</h3>
-      <p class="lead lh-180">Start building fast, beautiful and modern looking websites in no time using our theme.</p>
+      <h3 class=" mt-4">Minifier vos URLs</h3>
+      <p class="lead lh-180">Entrez votre URL ci-dessous afin de la transformer en une superbe URL courte en 1 clic !</p>
       <div class="fluid-paragraph mt-3">
-        <span>
           <div class="form-group">
             <%= form_tag(static_pages_index_path, method: :get) do %>
-              Entrez le prénom du profil que vous souhaitez rechercher <%= text_field_tag :search %>
+              <%= text_field_tag 'url', nil, class: 'form-control', placeholder: 'http://highflyers.agency/' %>
 
-                          <%= submit_tag 'Search', name: nil %>
+              <%= submit_tag 'Convertir', name: nil, class: "btn btn-success  hover-scale-110 mt-4" %>
             <% end %>
-          <input type="text" class="form-control" placeholder="http://highflyers.agency/">
         </div>
-        <button type="button" class="btn btn-animated btn-success btn-animated-x">
-          <span class="btn-inner--visible">Convertir</span>
-          <span class="btn-inner--hidden">
-        <i class="far fa-arrow-right"></i>
-        </span>
-        </button>
-        </span>
       </div>
-
-
-      <!-- LIST the URL shortner -->
-
-
+      <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right" %>
       <table>
         <thead>
         <tr>
+          <th>Key</th>
           <th>User</th>
+          <th>Compteur</th>
           <th>URL</th>
-          <th>Unique KEY</th>
-          <th colspan="3"></th>
+          <th colspan="5"></th>
         </tr>
         </thead>
         <tbody>
-        <% Shortener::ShortenedUrl.all.each do |url| %>
+        <% @urls.order(id: :desc).each do |url| %>
+        <!-- if url.owner == current_user -->
           <tr>
-            <td><%= url.owner_id %></td>
-            <td><%= url.url %></td>
             <td><%= url.unique_key %></td>
+            <td><%= url.owner_id %></td>
+            <td><%= url.use_count %></td>
+            <td><%= url.url %></td>
+            <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary" %></td>
           </tr>
         <% end %>
         </tbody>
       </table>
+
+      <!-- LIST the URL shortner -->
     </div>
   </div>
 </section>
