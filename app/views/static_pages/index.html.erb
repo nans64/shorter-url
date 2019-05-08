@@ -13,7 +13,7 @@
         </div>
       </div>
       <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right hover-scale-110" %>
-      <table>
+      <table class="table table-dark mt-7">
         <thead>
         <tr>
           <th>Key</th>
@@ -25,7 +25,6 @@
         </thead>
         <tbody>
         <% @urls.order(id: :desc).each do |url| %>
-        <!-- if url.owner == current_user -->
           <tr>
             <td><%= url.unique_key %></td>
             <td><%= url.owner_id %></td>
@@ -37,7 +36,6 @@
         </tbody>
       </table>
 
-      <!-- LIST the URL shortner -->
     </div>
   </div>
 </section>
