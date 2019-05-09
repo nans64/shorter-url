@@ -5,14 +5,16 @@
       <p class="lead lh-180">Entrez votre URL ci-dessous afin de la transformer en une superbe URL courte en 1 clic !</p>
       <div class="fluid-paragraph mt-3">
           <div class="form-group">
-            <%= form_tag(static_pages_index_path, method: :get) do %>
-              <%= url_field_tag 'url', nil, class: 'form-control', placeholder: 'http://highflyers.agency/' %>
-
-              <%= submit_tag 'Convertir', name: nil, class: "btn btn-success  hover-scale-110 mt-4" %>
+            <%= form_for(@url) do |f| %>
+              <%= f.url_field 'url', class: 'form-control', placeholder: 'http://highflyers.agency/' %>
+              <%= f.submit 'Convertir', class: "btn btn-success  hover-scale-110 mt-4" %>
             <% end %>
-        </div>
+          </div>
       </div>
       <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right hover-scale-110" %>
+      <% if params[:url].present? %>
+        <% @urls = ShortenedUrl.where(id: params[:url]) %>
+      <% end %>
       <table class="table table-dark mt-7">
         <thead>
         <tr>
@@ -33,33 +35,9 @@
             <td><%= url.owner_id %></td>
             <td><%= url.use_count %></td>
             <td>
-              <% if url.expires_at > DateTime.now %>
                 <%= url.expires_at %>
-              <% else %>
-                <span class="badge badge-danger">
-                    <i class="far fa-angry"></i>Expiré
-                </span>
-              <% end %>
                 </td>
-            <% if url.owner == current_user %>
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <td> <%= form_tag(static_pages_index_path, method: :get) do %>
-                    <%= number_field_tag 'nombre', nil, class: 'form-control',:in => 1..30 %>
-                    <%= hidden_field_tag 'id', url.id  %>
-                    <%= submit_tag 'Ajouter', name: nil, class: "btn btn-success hover-scale-110 mt-4" %>
-                  <% end %>
-                </td>
-                <td> <%= form_tag(static_pages_index_path, method: :get) do %>
-                    <%= hidden_field_tag 'id', url.id  %>
-                    <%= hidden_field_tag 'date', url.id %>
-                    <%= submit_tag 'Expirer', name: nil, class: "btn btn-danger hover-scale-110 mt-4" %>
-                  <% end %>
-                </td>
-             </div>
-              <% else  %>
-              <td></td>
-              <td></td>
-            <% end %>
+
             <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
             <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
 
