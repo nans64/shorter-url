@@ -28,7 +28,7 @@ class ShortenedUrlsController < ApplicationController
         elsif ShortenedUrl.where(url: @url).present?
 
           if ShortenedUrl.last.expires_at < DateTime.now
-            ShortenedUrl.add_days(id, numbers)
+            ShortenedUrl.add_days(@url.id, 3)
           end
 
           @urls = ShortenedUrl.where(url: @url)
