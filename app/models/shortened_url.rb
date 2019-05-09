@@ -18,4 +18,20 @@ class ShortenedUrl < ApplicationRecord
 
   end
 
+  def self.add_days(id, numbers)
+
+    url = Shortener::ShortenedUrl.find(id)
+    url.expires_at = url.expires_at + numbers.to_i.days
+    url.save
+
+  end
+
+  def self.expire(id, date)
+
+    url = Shortener::ShortenedUrl.find(id)
+    url.expires_at = DateTime.now
+    url.save
+
+  end
+
 end

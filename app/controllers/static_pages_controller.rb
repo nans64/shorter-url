@@ -1,5 +1,14 @@
 class StaticPagesController < ApplicationController
   def index
+
+    if params[:id] && params[:nombre]
+      ShortenedUrl.add_days(params[:id], params[:nombre])
+    end
+
+    if params[:id] && params[:date]
+      ShortenedUrl.expire(params[:id], params[:date])
+    end
+
     @urls = Shortener::ShortenedUrl.all
 
     if ShortenedUrl.is_not_empty?(params[:url])
@@ -26,4 +35,6 @@ class StaticPagesController < ApplicationController
     else
     end
   end
+
+
 end
