@@ -36,10 +36,23 @@
             <td><%= url.url %></td>
             <td><%= url.owner_id %></td>
             <td><%= url.use_count %></td>
-            <td>
-                <%= url.expires_at %>
-                </td>
-
+            <td><%= url.expires_at %></td>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <td>
+                <%= form_for url do |f| %>
+                  <%= f.number_field :nombre, class: 'form-control',:in => 1..30 %>
+                  <%= f.hidden_field :id, value: url.id %>
+                  <%= f.submit 'Ajouter', name: nil, class: "btn btn-success hover-scale-110 mt-4" %>
+                <% end %>
+              </td>
+              <td>
+                <%= form_for url do |f| %>
+                  <%= f.hidden_field :id, value: url.id %>
+                  <%= f.hidden_field :expire_date, value: DateTime.now %>
+                  <%= f.submit 'Expirer', name: nil, class: "btn btn-danger hover-scale-110 mt-4" %>
+                <% end %>
+              </td>
+            </div>
             <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
             <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
 

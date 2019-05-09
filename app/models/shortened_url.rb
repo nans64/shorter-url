@@ -1,4 +1,5 @@
 class ShortenedUrl < ApplicationRecord
+  attr_accessor :nombre, :expire_date
 
   def self.sanitize(url)
 

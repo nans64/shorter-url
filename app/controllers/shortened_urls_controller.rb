@@ -45,18 +45,18 @@ class ShortenedUrlsController < ApplicationController
     end
 
     def update
-      byebug
+
       if url_params[:id] && url_params[:nombre]
         ShortenedUrl.add_days(url_params[:id], url_params[:nombre])
       end
 
-      if url_params[:id] && url_params[:date]
-        ShortenedUrl.expire(url_params[:id], url_params[:date])
+      if url_params[:id] && url_params[:expire_date]
+        ShortenedUrl.expire(url_params[:id], url_params[:expire_date])
       end
 
       respond_to do |format|
-        if @url.update(video_params)
-          format.html { redirect_to "/", notice: 'Video was successfully updated.' }
+        if @url.update(url_params)
+          format.html { redirect_to "/", notice: 'Votre lien a été mis à jour.' }
 
         else
           format.html { render :edit }
@@ -67,7 +67,7 @@ class ShortenedUrlsController < ApplicationController
     def destroy
       @url.destroy
       respond_to do |format|
-        format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+        format.html { redirect_to root_path, notice: 'Video was successfully destroyed.' }
         format.json { head :no_content }
         redirect_to "/"
 
@@ -81,7 +81,7 @@ class ShortenedUrlsController < ApplicationController
     end
 
     def url_params
-      params.require(:shortened_url).permit(:id, :nombre, :url)
+      params.require(:shortened_url).permit(:id, :nombre, :url, :expire_date)
     end
 
 
