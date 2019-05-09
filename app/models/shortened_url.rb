@@ -8,16 +8,6 @@ class ShortenedUrl < ApplicationRecord
     url = "http://#{url}"
   end
 
-  def self.is_not_empty?(url)
-
-    if url.nil? || url == ""
-      return false
-    else
-      return true
-    end
-
-  end
-
   def self.add_days(id, numbers)
 
     url = Shortener::ShortenedUrl.find(id)
@@ -32,6 +22,10 @@ class ShortenedUrl < ApplicationRecord
     url.expires_at = DateTime.now
     url.save
 
+  end
+
+  def self.date_is_valid?(date)
+    date.expires_at > DateTime.now
   end
 
 end

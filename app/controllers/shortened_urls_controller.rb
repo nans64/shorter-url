@@ -15,26 +15,30 @@ class ShortenedUrlsController < ApplicationController
 
     def create
 
-      if ShortenedUrl.is_not_empty?(url_params[:url])
+      if url_params[:url].present?
 
         @url = ShortenedUrl.sanitize(url_params[:url])
 
         if ShortenedUrl.where(url: @url, owner_id: current_user).empty?
 
           Shortener::ShortenedUrl.generate(@url, owner: current_user, fresh: true, expires_at: 72.hours.since)
-          flash[:success] = "L'URL a été transformé avec succès - 1."
+          flash[:success] = "L'URL a été transformé avec succès"
           redirect_to(root_path)
 
-        elsif !ShortenedUrl.where(url: @url).empty?
+        elsif ShortenedUrl.where(url: @url).present?
+
+          if ShortenedUrl.last.expires_at < DateTime.now
+            ShortenedUrl.add_days(id, numbers)
+          end
 
           @urls = ShortenedUrl.where(url: @url)
-          flash[:success] = "L'URL a déjà été ajouté, vous pourrez la trouver ci-dessous."
+          flash[:alert] = "L'URL a déjà été ajouté, vous pourrez la trouver ci-dessous."
 
-          redirect_to static_pages_path(url: @urls.last.id) # ne fonctionne pas
+          redirect_to static_pages_path(url: @urls.last.id)
         else
 
           Shortener::ShortenedUrl.generate(@url, owner: current_user, expires_at: 72.hours.since)
-          flash[:success] = "L'URL a été transformé avec succès - 3."
+          flash[:success] = "L'URL a été transformé avec succès"
           redirect_to(root_path)
         end
       end
