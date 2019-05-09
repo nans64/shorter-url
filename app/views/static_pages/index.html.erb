@@ -10,11 +10,13 @@
               <%= f.submit 'Convertir', class: "btn btn-success  hover-scale-110 mt-4" %>
             <% end %>
           </div>
+        <% if params[:url].present? %>
+          <% @urls = ShortenedUrl.where(id: params[:url]) %>
+          <p class="lead lh-180">Veuillez trouver votre lien ci-dessous !</p>
+        <% end %>
       </div>
       <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right hover-scale-110" %>
-      <% if params[:url].present? %>
-        <% @urls = ShortenedUrl.where(id: params[:url]) %>
-      <% end %>
+
       <table class="table table-dark mt-7">
         <thead>
         <tr>
