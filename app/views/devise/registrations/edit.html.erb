@@ -67,7 +67,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% ShortenedUrl.all.order(id: :desc).each do |url| %>
+                    <% ShortenedUrl.where(owner_id: current_user.id).order(id: :desc).each do |url| %>
                       <tr>
                         <td><%= url.url %></td>
                         <td><%= url.owner_id %></td>

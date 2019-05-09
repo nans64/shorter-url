@@ -56,7 +56,7 @@ class ShortenedUrlsController < ApplicationController
 
       respond_to do |format|
         if @url.update(url_params)
-          format.html { redirect_to "/", notice: 'Votre lien a été mis à jour.' }
+          format.html { redirect_to "/users/edit", notice: 'Votre lien a été mis à jour.' }
 
         else
           format.html { render :edit }
