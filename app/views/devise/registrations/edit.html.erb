@@ -53,30 +53,50 @@
                   <h3 class=" mt-4">Mon profil</h3>
                   <p class="lead lh-180">Consultez les liens que vous avez minifiez ci-dessous !</p>
                   <%= link_to "Retour à la page d'accueil", "/", class: "btn btn-warning float-right hover-scale-110" %>
-                  <table class="table table-dark mt-7 mb-5">
+                  <table class="table table-dark mt-7">
                     <thead>
                     <tr>
-                      <th>Key</th>
+                      <th>URL d'origine</th>
                       <th>User</th>
                       <th>Compteur</th>
-                      <th>URL</th>
+                      <th>Date expiration</th>
+                      <th>Ajouter des jours d'expiration</th>
+                      <th>Expirer le lien</th>
+                      <th>Shorten URL</th>
                       <th colspan="5"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <% Shortener::ShortenedUrl.all.order(id: :desc).each do |url| %>
-                      <% if url.owner == current_user %>
-                        <tr>
-                          <td><%= url.unique_key %></td>
-                          <td><%= url.owner_id %></td>
-                          <td><%= url.use_count %></td>
-                          <td><%= url.url %></td>
-                          <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
-                        </tr>
-                      <% end %>
+                    <% ShortenedUrl.all.order(id: :desc).each do |url| %>
+                      <tr>
+                        <td><%= url.url %></td>
+                        <td><%= url.owner_id %></td>
+                        <td><%= url.use_count %></td>
+                        <td><%= url.expires_at %></td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                          <td>
+                            <%= form_for(url, url: shortened_url_path(url),  method: :put ) do |f| %>
+                              <%= f.number_field :nombre, class: 'form-control',:in => 1..30 %>
+                              <%= f.hidden_field :id, value: url.id %>
+                              <%= f.submit 'Ajouter', name: nil, class: "btn btn-success hover-scale-110 mt-4" %>
+                            <% end %>
+                          </td>
+                          <td>
+                            <%= form_for(url, url: shortened_url_path(url),  method: :put ) do |f| %>
+                              <%= f.hidden_field :id, value: url.id %>
+                              <%= f.hidden_field :expire_date, value: DateTime.now %>
+                              <%= f.submit 'Expirer', name: nil, class: "btn btn-danger hover-scale-110 mt-4" %>
+                            <% end %>
+                          </td>
+                        </div>
+                        <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
+                        <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
+
+                      </tr>
                     <% end %>
                     </tbody>
                   </table>
+
                   <p class="lead lh-180">Modifiez mes informations de profil</p>
 
                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>

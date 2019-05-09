@@ -17,46 +17,25 @@
       </div>
       <%= link_to "Refresh la page", "/", class: "btn btn-warning float-right hover-scale-110" %>
 
-      <table class="table table-dark mt-7">
+      <table class="table table-dark mt-7 mb-5">
         <thead>
         <tr>
-          <th>URL d'origine</th>
+          <th>Key</th>
           <th>User</th>
           <th>Compteur</th>
-          <th>Date expiration</th>
-          <th>Ajouter des jours d'expiration</th>
-          <th>Expirer le lien</th>
-          <th>Shorten URL</th>
+          <th>URL</th>
           <th colspan="5"></th>
         </tr>
         </thead>
         <tbody>
         <% @urls.order(id: :desc).each do |url| %>
-          <tr>
-            <td><%= url.url %></td>
-            <td><%= url.owner_id %></td>
-            <td><%= url.use_count %></td>
-            <td><%= url.expires_at %></td>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <td>
-                <%= form_for url do |f| %>
-                  <%= f.number_field :nombre, class: 'form-control',:in => 1..30 %>
-                  <%= f.hidden_field :id, value: url.id %>
-                  <%= f.submit 'Ajouter', name: nil, class: "btn btn-success hover-scale-110 mt-4" %>
-                <% end %>
-              </td>
-              <td>
-                <%= form_for url do |f| %>
-                  <%= f.hidden_field :id, value: url.id %>
-                  <%= f.hidden_field :expire_date, value: DateTime.now %>
-                  <%= f.submit 'Expirer', name: nil, class: "btn btn-danger hover-scale-110 mt-4" %>
-                <% end %>
-              </td>
-            </div>
-            <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
-            <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
-
-          </tr>
+            <tr>
+              <td><%= url.unique_key %></td>
+              <td><%= url.owner_id %></td>
+              <td><%= url.use_count %></td>
+              <td><%= url.url %></td>
+              <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-primary  hover-translate-y-n3" %></td>
+            </tr>
         <% end %>
         </tbody>
       </table>
