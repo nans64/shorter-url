@@ -39,5 +39,8 @@ RSpec.describe ShortenedUrl, type: :model do
       end
     end
 
+
+
+
   end
 end

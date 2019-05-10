@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  describe User do
+describe "the signin process", type: :feature do
 
     before(:each) do
       @user = User.create!(email: "jean@highflyers.agency", password:"123456", password_confirmation: "123456")
@@ -13,7 +12,18 @@ RSpec.describe User, type: :model do
         expect(@user).to be_a(User)
         expect(@user).to be_valid
       end
-  end
+    end
 
-  end
+    it "signs me in" do
+      visit user_session_path
+      within('form') do
+        fill_in 'input-email', with: 'jean@highflyers.agency'
+        fill_in 'input-password', with: '123456'
+      end
+      click_button 'input-submit'
+      expect(page).to have_content 'Signed in successfully'
+    end
+
+
+
 end
