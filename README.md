@@ -38,6 +38,8 @@ pouvoir étendre la durée du lien.
 - Refactorer le ShortenedUrl dans un service
 
 - Rajouter du jQuery pour recharger les pages instantanéments 
+
+- Augmenter la couverture des tests
  
 # Version
 
