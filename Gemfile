@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
-# Add devise
 gem 'devise'
 # Shortner
 gem 'shortener'
@@ -45,6 +44,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'table_print'
   gem 'faker'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
