@@ -22,9 +22,9 @@
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                       <td>
                         <%= form_for(url, url: shortened_url_path(url),  method: :put ) do |f| %>
-                          <%= f.number_field :nombre, class: 'form-control',:in => 1..30 %>
-                          <%= f.hidden_field :id, value: url.id %>
-                          <%= f.submit 'Ajouter', name: nil, class: "btn btn-primary hover-scale-110 mt-4" %>
+                          <%= f.number_field :nombre, class: 'form-control',:in => 1..30, id: 'input-nombre' %>
+                          <%= f.hidden_field :id, value: url.id, id: 'input-id' %>
+                          <%= f.submit 'Ajouter', name: nil, class: "btn btn-primary hover-scale-110 mt-4", id: 'input-submit-nombre' %>
                         <% end %>
                       </td>
                     </div>

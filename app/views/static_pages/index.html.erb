@@ -6,8 +6,8 @@
       <div class="fluid-paragraph mt-3">
           <div class="form-group">
             <%= form_for(@url) do |f| %>
-              <%= f.url_field 'url', class: 'form-control', placeholder: 'http://highflyers.agency/' %>
-              <%= f.submit 'Convertir', class: "btn btn-success  hover-scale-110 mt-4" %>
+              <%= f.url_field 'url', class: 'form-control', id: 'input-url', placeholder: 'http://highflyers.agency/' %>
+              <%= f.submit 'Convertir', class: "btn btn-success  hover-scale-110 mt-4", id:"input-submit" %>
             <% end %>
           </div>
         <% if params[:url].present? %>

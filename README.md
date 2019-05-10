@@ -43,7 +43,7 @@ pouvoir étendre la durée du lien.
 
 - Rajouter du jQuery pour recharger les pages instantanéments 
 
-- Augmenter la couverture des tests
+- Augmenter la couverture des tests notamment sur les formulaires dans l'espace membre
  
 # Version
 
