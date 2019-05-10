@@ -12,7 +12,7 @@ class ShortenedUrl < ApplicationRecord
   def self.add_days(id, numbers)
 
     url = Shortener::ShortenedUrl.find(id)
-    url.expires_at = url.expires_at + numbers.to_i.days
+    url.expires_at = DateTime.now + numbers.to_i.days
     url.save
 
   end

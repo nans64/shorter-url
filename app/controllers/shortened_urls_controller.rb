@@ -69,7 +69,6 @@ class ShortenedUrlsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Video was successfully destroyed.' }
         format.json { head :no_content }
-        redirect_to "/"
 
       end
     end
