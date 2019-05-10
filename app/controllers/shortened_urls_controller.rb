@@ -5,7 +5,6 @@ class ShortenedUrlsController < ApplicationController
       @urls = ShortenedUrl.all
     end
 
-    # GET /videos/new
     def new
       @url = ShortenedUrl.new
     end
