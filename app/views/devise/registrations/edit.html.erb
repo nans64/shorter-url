@@ -29,7 +29,14 @@
                       </td>
                     </div>
                     <td><%= "#{request.protocol}#{request.host_with_port}/#{url.unique_key}" %></td>
-                    <td><%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-success hover-translate-y-n3" %></td>
+                    <td>
+                      <% if ShortenedUrl.date_is_valid?(url)%>
+                      <span class="badge badge-primary">
+                          EXPIRE
+                      </span>
+                      <% else %>
+                        <%= link_to "Visitez le lien", "/" + url.unique_key, target: "_blank", class: "btn btn-success hover-translate-y-n3" %></td>
+                    <% end %>
                     <td>
                       <%= form_for(url, url: shortened_url_path(url),  method: :put ) do |f| %>
                         <%= f.hidden_field :id, value: url.id %>

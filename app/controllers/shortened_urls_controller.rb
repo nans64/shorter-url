@@ -27,14 +27,18 @@ class ShortenedUrlsController < ApplicationController
 
         elsif ShortenedUrl.where(url: @url).present?
 
-          if ShortenedUrl.last.expires_at < DateTime.now
-            ShortenedUrl.add_days(@url.id, 3)
+          @urls = ShortenedUrl.where(url: @url)
+
+          if @urls.last.expires_at < DateTime.now && @urls.last.owner_type.nil?
+            ShortenedUrl.add_days(@urls.last.id, 3)
+          else
+            Shortener::ShortenedUrl.generate(@url, owner: current_user, fresh: true, expires_at: 72.hours.since)
           end
 
-          @urls = ShortenedUrl.where(url: @url)
           flash[:alert] = "L'URL a déjà été ajouté, vous pourrez la trouver ci-dessous."
 
           redirect_to static_pages_path(url: @urls.last.id)
+
         else
 
           Shortener::ShortenedUrl.generate(@url, owner: current_user, expires_at: 72.hours.since)
@@ -67,7 +71,7 @@ class ShortenedUrlsController < ApplicationController
     def destroy
       @url.destroy
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Video was successfully destroyed.' }
+        format.html { redirect_to "/users/edit", notice: 'Votre lien a bien été supprimé.' }
         format.json { head :no_content }
 
       end

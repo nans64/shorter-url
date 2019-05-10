@@ -20,13 +20,18 @@ class ShortenedUrl < ApplicationRecord
   def self.expire(id, date)
 
     url = Shortener::ShortenedUrl.find(id)
-    url.expires_at = DateTime.now
+    url.expires_at = date
     url.save
 
   end
 
   def self.date_is_valid?(date)
-    date.expires_at > DateTime.now
+
+    if date.expires_at and date.expires_at < DateTime.now
+      return true
+    else
+      return false
+    end
   end
 
 end
