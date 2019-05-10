@@ -15,6 +15,10 @@ mot de passe : 123456
 
 - Shortner < Générateur d'URLs minifiés
 
+# Durée pour la réalisation
+
+J'ai pris 12 heures pour faire ce travail 
+
 # Explication
 
 Vous pouvez ajouter un lien sans être connecté :
