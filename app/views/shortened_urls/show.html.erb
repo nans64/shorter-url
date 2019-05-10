@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @shortened_url.owner_id %>
+</p>
+
+<p>
+  <strong>Owner type:</strong>
+  <%= @shortened_url.owner_type %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @shortened_url.url %>
+</p>
+
+<p>
+  <strong>Unique key:</strong>
+  <%= @shortened_url.unique_key %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @shortened_url.category %>
+</p>
+
+<p>
+  <strong>Use count:</strong>
+  <%= @shortened_url.use_count %>
+</p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @shortened_url.expires_at %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @shortened_url.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @shortened_url.updated_at %>
+</p>
+
+<%= link_to 'Edit', edit_shortened_url_path(@shortened_url) %> |
+<%= link_to 'Back', shortened_urls_path %>

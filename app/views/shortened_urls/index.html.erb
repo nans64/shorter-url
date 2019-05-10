@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Shortened Urls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Owner</th>
+      <th>Owner type</th>
+      <th>Url</th>
+      <th>Unique key</th>
+      <th>Category</th>
+      <th>Use count</th>
+      <th>Expires at</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |shortened_url| %>
+      <tr>
+        <td><%= shortened_url.owner_id %></td>
+        <td><%= shortened_url.owner_type %></td>
+        <td><%= shortened_url.url %></td>
+        <td><%= shortened_url.unique_key %></td>
+        <td><%= shortened_url.category %></td>
+        <td><%= shortened_url.use_count %></td>
+        <td><%= shortened_url.expires_at %></td>
+        <td><%= shortened_url.created_at %></td>
+        <td><%= shortened_url.updated_at %></td>
+        <td><%= link_to 'Show', shortened_url %></td>
+        <td><%= link_to 'Edit', edit_shortened_url_path(shortened_url) %></td>
+        <td><%= link_to 'Destroy', shortened_url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shortened Url', new_shortened_url_path %>
